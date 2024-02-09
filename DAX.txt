@@ -1,0 +1,101 @@
+DAX: Data Analysis Expressions
+Why?For modeling and analysis
+What? A functional or formula language
+COntains? similar to other languages it has common elements + more functions (300+ functions)
+	Identifier, Data Type, OPerators, Functions [many functions available]
+We create?
+	Measure: SIngle value holder
+	COlumn: Multiple values in a column holder
+	Table: Multiple columns in a table
+
+Functions?
+	Date functions: Date operations
+	FIlter functions: ROws and columns filtering
+	Math functions: mathemetical ops
+	Time Intelligence functions: Time Intelligence operations etc.
+
+A few common and important functions 
+=========================
+
+Sum, Avg, Max, Min, Count, Product etc.: These work on complete column and perform aggregation.
+	SYn: Sum(Tablename[columnname])
+
+Sumx, Avgx, Maxx, Minx, Countx, Productx--Perform aggregation based on expression (x)
+
+	Syn:
+		Sumx([expression], tablename[columnname])
+
+Scenario:		Find out  total discount fee
+		sum(factpayments[discount_fee])
+		sumx(factpayments, factpayments[dicsount_fee])
+Scenario:		Find out hyd total discount fee
+		sumx(filter(factpayments, factpayments[locationid]="HYD", factpayments[discount_fee])	
+
+ AvgA, MaxA, MinA, CountA --Perform aggregation though the column having Nulls, Text values, and other logical values (TRUE, FALSE)
+
+	Syn:
+		AverageA(tablename[columnname])
+
+
+Braces usage:
+	[ ]-> Measure ref or Column Ref
+	()--> Function body start and body end
+	{}-> Row / Rows
+
+PreviousYear/ PreviousQtr/PreviousMonth: Perform complete previous interval data
+Nextyear/NextQtr/NextMonth: Perform complete next interval data
+ParallelPeriod: Perform calculations for previous or next intervals
+		+ ->Indicate next periods
+		- -->Indicate previous periods
+Calculate:	Most widely used to perform different types of calculations.
+	Syn:
+		Calculate(<Expressions>,<Filter>)
+	
+PreviousYear DF=Calculate(sum(factpayments[discount_fee]), PreviousYear(dimdate[date]))
+
+Two previous years DF=Calculate(sum(factpayments[discount_fee]), Previousyear(PreviousYear(dimdate[date])))
+
+
+Two previous years DF1=Calculate(sum(factpayments[discount_fee]), Parallelperiod(dimdate[date],-2,year))
+
+
+NextYear DF=Calculate(sum(factpayments[discount_fee]), NextYear(dimdate[date]))
+
+Two Next years DF=Calculate(sum(factpayments[discount_fee]), Nextyear(NextYear(dimdate[date])))
+
+
+Two next years DF1=Calculate(sum(factpayments[discount_fee]), Parallelperiod(dimdate[date],2,year))
+
+Growth=current-last
+Growth percentage=curr-last/last *100
+Ex: Current=30000 last=20000	growth=30000-20000=10000
+	Growth per=10000/20000 * 100=1/2*100=50%
+
+Cumulative total or running total:
+	For each category the previous categories total is cumulative or running total.
+	Ex:
+	Calculate(sum(factpayments[discount]), filter(all(dimdate[date]), dimdate[date]<=max(dimdate[date]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
