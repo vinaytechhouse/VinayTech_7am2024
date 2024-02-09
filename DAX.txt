@@ -1,6 +1,7 @@
-DAX: Data Analysis Expressions
-Why?For modeling and analysis
+DAX: Data Analysis Expressions-new
+Why?	For modeling and analysis
 What? A functional or formula language
+
 COntains? similar to other languages it has common elements + more functions (300+ functions)
 	Identifier, Data Type, OPerators, Functions [many functions available]
 We create?
